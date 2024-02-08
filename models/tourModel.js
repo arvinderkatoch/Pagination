@@ -1,7 +1,7 @@
 const validator = require('validator');
 
 const mongoose = require('mongoose');
-const slugify = require('slugify');
+//const slugify = require('slugify');
 
 const tourSchema = new mongoose.Schema(
   {
@@ -38,7 +38,7 @@ const tourSchema = new mongoose.Schema(
       type: Number,
       default: 0,
       min: [1, 'Rating must br above 1.0'],
-      max: [1, 'Rating must br above 1.0']
+      max: [5, 'Rating must br above 5.0']
     },
     ratingQuantity: {
       type: Number,
