@@ -11,8 +11,8 @@ const tourSchema = new mongoose.Schema(
       unique: true,
       trim: true,
       maxLength: [40, 'A tour must have less or equal then 40 character '],
-      minlength: [10, 'A tour must have more or equal than 10 characters'],
-      validate: [validator.isAlpha, 'Tour name must only contain character']
+      minlength: [10, 'A tour must have more or equal than 10 characters']
+      // validate: [validator.isAlpha, 'Tour name must only contain character']
     },
     slug: String,
     duration: {
@@ -34,13 +34,13 @@ const tourSchema = new mongoose.Schema(
       }
     },
 
-    ratingAverage: {
+    ratingsAverage: {
       type: Number,
       default: 0,
       min: [1, 'Rating must br above 1.0'],
       max: [5, 'Rating must br above 5.0']
     },
-    ratingQuantity: {
+    ratingsQuantity: {
       type: Number,
       default: 0
     },
@@ -59,34 +59,59 @@ const tourSchema = new mongoose.Schema(
           return this.price > val;
         },
         message: 'Discount price ({VALUE}) should be less than regular price'
-      },
-      summary: {
-        type: String,
-        trim: true
-      },
-      description: {
-        type: String,
-        trim: true,
-        required: [true, 'A tour must have description']
-      },
-
-      imageCover: {
-        type: String,
-        required: [true, 'A tour must have cour image']
-      },
-      image: [String],
-      createdAt: {
-        type: Date,
-        default: Date.now(),
-        select: false
-      },
-      startDate: [Date],
-      secretTour: {
-        type: Boolean,
-        default: false
       }
-    }
+    },
+    summary: {
+      type: String,
+      trim: true
+    },
+    description: {
+      type: String,
+      trim: true,
+      required: [true, 'A tour must have description']
+    },
+
+    imageCover: {
+      type: String,
+      required: [true, 'A tour must have cour image']
+    },
+    image: [String],
+    createdAt: {
+      type: Date,
+      default: Date.now(),
+      select: false
+    },
+    startDate: [Date],
+    secretTour: {
+      type: Boolean,
+      default: false
+    },
+    startLocation: {
+      //Geo JSON
+      type: {
+        type: String,
+        default: 'Point',
+        enum: ['Point']
+      },
+      coordinates: [Number],
+      address: String,
+      description: String
+    },
+    locations: [
+      {
+        type: {
+          type: String,
+          default: 'Point',
+          enum: ['Point']
+        },
+        coordinates: [Number],
+        address: String,
+        description: String,
+        day: Number
+      }
+    ]
   },
+
   {
     toJSON: { virtuals: true },
     toObject: { virtuals: true }
