@@ -33,7 +33,6 @@ const sendErrorProd = (err, res) => {
     });
     //programming or other unknown error : dont leak detail
   } else {
-    console.error(error.name);
     res.status(500).json({
       status: 'error',
       message: 'Something went wrong'

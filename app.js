@@ -7,6 +7,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
+const reviewRouter = require('./routes/reveiwsRoutes');
 const globalErrorController = require('./controllers/errorController');
 const AppError = require('./utils/appError');
 
@@ -48,7 +49,7 @@ app.use((req, res, next) => {
 //Limit request from same API
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  limit: 3,
+  limit: 300,
   message: 'To many request from IP.Please try again after few Min'
 });
 
@@ -62,6 +63,7 @@ app.use('/api', limiter);
 // 3) ROUTES
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/reviews', reviewRouter);
 
 app.all('*', (req, res, next) => {
   // res.status(404).json({

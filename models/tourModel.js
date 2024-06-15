@@ -1,5 +1,3 @@
-const validator = require('validator');
-
 const mongoose = require('mongoose');
 //const slugify = require('slugify');
 
@@ -109,6 +107,12 @@ const tourSchema = new mongoose.Schema(
         description: String,
         day: Number
       }
+    ],
+    guides: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
+      }
     ]
   },
 
@@ -121,11 +125,31 @@ const tourSchema = new mongoose.Schema(
 tourSchema.virtual('durationWeeks').get(function() {
   return this.duration / 7;
 });
+
+tourSchema.virtual('review', {
+  ref: 'Reviews',
+  foreignField: 'tour',
+  localField: '_id'
+});
+
 //run before .save() and .create()
 tourSchema.pre(/^find/, function(next) {
   this.find({ secretTour: { $ne: true } });
+  this.start = Date.now();
   next();
 });
+tourSchema.pre(/^find/, function(next) {
+  this.populate({
+    path: 'guides',
+    select: '-__v -passwordChangedAt -passwordResetExpires -passwordResetToken'
+  });
+  next();
+});
+tourSchema.pre('aggregate', function(next) {
+  this.pipeline().unshift({ $match: { secretTour: { $ne: true } } });
+  next();
+});
+
 const Tour = mongoose.model('Tour', tourSchema);
 
 module.exports = Tour;

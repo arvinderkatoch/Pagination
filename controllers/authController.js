@@ -80,7 +80,6 @@ exports.login = catchAsync(async (req, res, next) => {
 });
 
 exports.protect = catchAsync(async (req, res, next) => {
-  console.log('I am here');
   let token;
   if (
     req.headers.authorization &&
@@ -125,6 +124,7 @@ exports.restrictTo = (...roles) => {
   return (req, res, next) => {
     // roles ['admin', 'lead-guide']
     console.log(req.user.role);
+    console.log(...roles);
     if (!roles.includes(req.user.role)) {
       return next(
         new AppError('You dont have the permission to perform action', 401)
