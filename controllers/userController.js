@@ -11,18 +11,7 @@ const filterObj = (obj, ...allowedFields) => {
   });
   return newObj;
 };
-exports.getAllUsers = catchAsync(async (req, res, next) => {
-  const users = await User.find(req.query);
-
-  //Send response
-  res.status(200).json({
-    status: 'success',
-    results: users.length,
-    data: {
-      users
-    }
-  });
-});
+exports.getAllUsers = factory.getAll(User);
 exports.updateMe = async (req, res, next) => {
   if (req.body.password || req.body.passwordConfirm) {
     return next(
@@ -45,7 +34,10 @@ exports.updateMe = async (req, res, next) => {
     }
   });
 };
-
+exports.getMe = (req, res, next) => {
+  req.params.id = req.user.id;
+  next();
+};
 exports.deleteMe = catchAsync(async (req, res, next) => {
   await User.findByIdAndUpdate(req.user.id, { active: false });
   res.status(204).json({
@@ -54,23 +46,12 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.getUser = catchAsync(async (req, res, next) => {
-  const userId = await User.findById(req.params.id);
-
-  //Send response
-  res.status(200).json({
-    status: 'success',
-
-    data: {
-      userId
-    }
-  });
-});
+exports.getUser = factory.getOne(User);
 
 exports.createUser = (req, res) => {
   res.status(500).json({
     status: 'error',
-    message: 'This route is not yet defined!'
+    message: 'This route is not defined '
   });
 };
 

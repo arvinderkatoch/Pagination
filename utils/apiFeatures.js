@@ -11,8 +11,9 @@ class APIFeatures {
 
     // 1B) Advanced filtering
     let queryStr = JSON.stringify(queryObj);
+    console.log(queryStr, ' i am not there'); //{"price":{"lt":"1000"}}  i am not there
     queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
-
+    console.log(queryStr, 'i am her'); //{"price":{"$lt":"1000"}} i am her
     this.query = this.query.find(JSON.parse(queryStr));
     return this;
   }

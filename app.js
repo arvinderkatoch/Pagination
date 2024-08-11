@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
@@ -12,6 +13,8 @@ const globalErrorController = require('./controllers/errorController');
 const AppError = require('./utils/appError');
 
 const app = express();
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
 app.use(helmet());
 
 //DEvlopment Logging
@@ -45,7 +48,9 @@ app.use((req, res, next) => {
   console.log('Hello from the middleware 👋');
   next();
 });
-
+app.get('/', (req, res) => {
+  res.status(200).render('base');
+});
 //Limit request from same API
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes

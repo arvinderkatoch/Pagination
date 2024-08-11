@@ -14,6 +14,10 @@ const DB = process.env.DATABASE.replace(
   '<PASSWORD>',
   process.env.DATABASE_PASSWORD
 );
+const port = process.env.PORT || 3000;
+const server = app.listen(port, () => {
+  console.log(`App running on port ${port}...`);
+});
 
 console.log(DB);
 mongoose
@@ -29,9 +33,4 @@ process.on('unhandledRejection', err => {
   server.close(() => {
     process.exit(1);
   });
-});
-
-const port = process.env.PORT || 3000;
-const server = app.listen(port, () => {
-  console.log(`App running on port ${port}...`);
 });

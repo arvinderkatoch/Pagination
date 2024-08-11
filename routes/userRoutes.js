@@ -4,17 +4,30 @@ const authController = require('../controllers/authController');
 
 const router = express.Router();
 
+router.use((req, res, next) => {
+  console.log('Hello from the userRoutes👋');
+  next();
+});
+
 router.post('/signup', authController.signup);
 router.post('/login', authController.login);
 router.post('/forgotPassword', authController.forgotPassword);
 router.patch('/resetPassword/:token', authController.resetPassword);
+
+//This will protect all routes after this mmiddleware
+router.use(authController.protect);
+
 router.patch(
   '/updateMyPassword',
-  authController.protect,
+
   authController.updatePassword
 );
-router.patch('/updateMe', authController.protect, userController.updateMe);
-router.delete('/deleteMe', authController.protect, userController.deleteMe);
+router.patch('/updateMe', userController.updateMe);
+router.delete('/deleteMe', userController.deleteMe);
+router.route('/me').get(userController.getMe, userController.getUser);
+
+router.use(authController.restrictTo('admin'));
+
 router
   .route('/')
   .get(userController.getAllUsers)
