@@ -12,10 +12,14 @@ const reviewRouter = require('./routes/reveiwsRoutes');
 const globalErrorController = require('./controllers/errorController');
 const AppError = require('./utils/appError');
 const viewRouter = require('./routes/viewRoutes');
+const cookieParser = require('cookie-parser')
+const cors = require('cors');
 const app = express();
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
-app.use(helmet());
+app.use(cookieParser())
+app.use(cors());
+
 
 //DEvlopment Logging
 // 1) MIDDLEWARES

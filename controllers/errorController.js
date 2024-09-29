@@ -24,29 +24,59 @@ const handleJWTError = err =>
 
 const handleJWTExpired = err => new AppError('JWT token has expired', 401);
 
-const sendErrorProd = (err, res) => {
-  err.isOperational = true;
-  if (err.isOperational) {
-    res.status(err.statusCode).json({
-      status: err.status,
-      message: err.message
-    });
-    //programming or other unknown error : dont leak detail
-  } else {
-    res.status(500).json({
-      status: 'error',
-      message: 'Something went wrong'
-    });
-  }
-};
-const sendErrorDev = (err, res) => {
+const sendErrorProd = (err, req,res) => {
+ 
+  if(req.originalUrl.startsWith('/api')) {
+    if(err.isOperational){
   res.status(err.statusCode).json({
     status: err.status,
     error: err,
     message: err.message,
     stack: err.stack
+   
   });
-};
+  }
+
+
+return res.status(500).json({
+  status: 'error',
+  message: 'Something went wrong'
+});
+}
+
+
+if(err.isOperational) {
+return res.status(err.statusCode).render('error',{
+      title: 'Please try again later',
+      msg: err.message
+    
+    })
+  }
+}
+
+const sendErrorDev = (err, req,res) => {
+
+  if(req.originalUrl.startsWith('/api')) {
+  
+  return res.status(err.statusCode).json({
+    status: err.status,
+    error: err,
+    message: err.message,
+    stack: err.stack
+  
+  });
+}
+  
+return res.status(err.statusCode).render('error',{
+      title: 'Please try again later',
+      msg: err.message
+    
+    })
+  }
+
+
+
+
 
 module.exports = (err, req, res, next) => {
   //console.log(err.stack);
@@ -55,15 +85,16 @@ module.exports = (err, req, res, next) => {
 
   if (process.env.NODE_ENV === 'development') {
     console.log('hello from the dev');
-    sendErrorDev(err, res);
+    sendErrorDev(err, req,res);
   } else if (process.env.NODE_ENV === 'production') {
     let error = { ...err };
+    error.message = err.message
     console.log('hello from the production');
     if (err.name === 'CastError') error = handleCastErrorDB(error);
     if (err.code === 11000) error = handleDuplicateFieldsDB(err);
     if (err.name === 'ValidationError') error = handleValidationErrorDB(err);
     if (err.name === 'JsonWebTokenError') error = handleJWTError(err);
     if (error.name === 'TokenExpiredError') error = handleJWTExpired(err);
-    sendErrorProd(error, res);
+    sendErrorProd(error, req,res);
   }
 };
