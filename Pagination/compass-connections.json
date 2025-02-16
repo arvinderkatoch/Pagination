@@ -1,0 +1,75 @@
+{
+  "type": "Compass Connections",
+  "version": {
+    "$numberInt": "1"
+  },
+  "connections": [
+    {
+      "id": "13883bb1-a31f-4732-bc13-2f036ba79479",
+      "connectionOptions": {
+        "connectionString": "mongodb://localhost:27017/"
+      },
+      "savedConnectionType": "recent"
+    },
+    {
+      "id": "8d696ced-d3df-4194-bf0d-b3731f3525d9",
+      "lastUsed": {
+        "$date": {
+          "$numberLong": "1701890997669"
+        }
+      },
+      "favorite": {
+        "name": "tours",
+        "color": "color3"
+      },
+      "connectionOptions": {
+        "connectionString": "mongodb+srv://arvinderkatoch02:anoXmous123@cluster0.2kcaqlo.mongodb.net/",
+        "oidc": {
+          "serializedState": "eyJvaWRjUGx1Z2luU3RhdGVWZXJzaW9uIjowLCJzdGF0ZSI6W119"
+        }
+      },
+      "savedConnectionType": "favorite"
+    },
+    {
+      "id": "97e805cc-124d-4bf7-918e-6cc74c67bba7",
+      "lastUsed": {
+        "$date": {
+          "$numberLong": "1701624627331"
+        }
+      },
+      "connectionOptions": {
+        "connectionString": "mongodb+srv://arvinderkatoch02:anoXmous123@natours.ib9qwmj.mongodb.net/",
+        "oidc": {
+          "serializedState": "eyJvaWRjUGx1Z2luU3RhdGVWZXJzaW9uIjowLCJzdGF0ZSI6W119"
+        }
+      },
+      "savedConnectionType": "recent"
+    },
+    {
+      "id": "cae3600d-16f5-47cf-96c0-3bde7066affe",
+      "connectionOptions": {
+        "connectionString": "mongodb://localhost:27017/"
+      },
+      "savedConnectionType": "recent"
+    },
+    {
+      "id": "f806b348-6b6a-4a84-9b7c-1f5bf7f7115c",
+      "lastUsed": {
+        "$date": {
+          "$numberLong": "1732124244230"
+        }
+      },
+      "favorite": {
+        "name": "natours",
+        "color": "color2"
+      },
+      "savedConnectionType": "favorite",
+      "connectionOptions": {
+        "connectionString": "mongodb+srv://arvinderkatoch02:anoXmous123@cluster0.hrkz24t.mongodb.net/?retryWrites=true&w=majority",
+        "oidc": {
+          "serializedState": "eyJvaWRjUGx1Z2luU3RhdGVWZXJzaW9uIjowLCJzdGF0ZSI6W119"
+        }
+      }
+    }
+  ]
+}
