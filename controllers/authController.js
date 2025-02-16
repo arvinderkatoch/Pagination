@@ -79,6 +79,15 @@ exports.login = catchAsync(async (req, res, next) => {
   createSendToken(user, 200, res);
 });
 
+
+exports.logout = catchAsync(async (req, res, next) => {
+
+  res.clearCookie('jwt');
+  res.status(200).json({ status: 'success' });
+ 
+});
+
+
 exports.protect = catchAsync(async (req, res, next) => {
   let token;
   if (
@@ -86,6 +95,8 @@ exports.protect = catchAsync(async (req, res, next) => {
     req.headers.authorization.startsWith('Bearer')
   ) {
     token = req.headers.authorization.split(' ')[1];
+  } else if (req.cookies.jwt){
+    token = req.cookies.jwt;
   }
 
   if (!token) {
@@ -116,7 +127,36 @@ exports.protect = catchAsync(async (req, res, next) => {
 
   //Grant access to protected route
   req.user = currentUser;
+  res.locals.user = currentUser;
 
+  next();
+});
+
+exports.isLoggedIn = (async (req, res, next) => {
+
+  try{
+  if (req.cookies.jwt) {
+    // Verify JWT
+    const decoded = await util.promisify(jwt.verify)(
+      req.cookies.jwt,
+      process.env.JWT_SECRET
+    );
+    
+    // Find the current user
+    const currentUser = await User.findById(decoded.id);
+
+    // If user does not exist or password was changed, move to the next middleware
+    if (!currentUser || currentUser.changedPasswordAfter(decoded.iat)) {
+      return next();
+    }
+
+    // User is logged in
+    res.locals.user = currentUser;
+  }
+  } catch(err) {
+    console.log(err);
+  }
+  // No JWT cookie, proceed to the next middleware
   next();
 });
 
