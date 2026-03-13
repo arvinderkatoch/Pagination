@@ -9,6 +9,7 @@ const hpp = require('hpp');
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
 const reviewRouter = require('./routes/reveiwsRoutes');
+const bookingRouter = require('./routes/bookingRoutes');
 const globalErrorController = require('./controllers/errorController');
 const AppError = require('./utils/appError');
 const viewRouter = require('./routes/viewRoutes');
@@ -18,9 +19,12 @@ const app = express();
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 app.use(cookieParser())
-app.use(cors());
 
 
+app.use(cors({
+  origin: ['https://arvindercode.in', 'http://localhost:5173'],
+  credentials: true
+}));
 //DEvlopment Logging
 // 1) MIDDLEWARES
 if (process.env.NODE_ENV === 'development') {
@@ -67,10 +71,11 @@ app.use((req, res, next) => {
 
 
 // 3) ROUTES
-app.use('/',viewRouter);
+app.use('/', viewRouter);
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);
+app.use('/api/v1/bookings', bookingRouter);
 
 app.all('*', (req, res, next) => {
   // res.status(404).json({
