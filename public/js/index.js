@@ -1,30 +1,50 @@
-console.log("Hello from parcel")
+
 import '@babel/polyfill'
-import {login} from './login'
-import { displayMap } from './mapbox';
-import {logout} from './login'
-
-
+import { login } from './login'
+import { logout } from './login'
+import { signup } from './signup'
+import { bookTour } from './stripe';
+console.log("Hello from parcel")
+console.log(document.querySelector('.nav__el--logout'))
 const logoutButton = document.querySelector('.nav__el--logout');
-const mapBox = document.getElementById('map');
+const bookBtn = document.getElementById('book-tour');
 
-if (mapBox){
-const locations= JSON.parse(mapBox.dataset.locations);
-displayMap(locations)
+
+const loginForm = document.querySelector('.form--login');
+const signupForm = document.querySelector('.form--signup');
+console.log("i am here");
+if (loginForm) {
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const userName = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        login(userName, password);
+    });
 }
 
-const form = document.querySelector('form')
-if (form) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
+if (signupForm) {
+    signupForm.addEventListener('submit', (e) => {
+        e.preventDefault();
 
-      const userName = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+        const name = document.getElementById("name").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const passwordConfirm = document.getElementById("passwordConfirm").value;
 
-      login(userName, password);
+        signup(name, email, password, passwordConfirm);
     });
-  }
+}
 
-  if(logoutButton) {
-    logoutButton.addEventListener('click',logout)
-  }
+if (logoutButton) {
+    console.log("logoutbutton");
+    logoutButton.addEventListener('click', logout)
+}
+
+if (bookBtn)
+    bookBtn.addEventListener('click', e => {
+        e.target.textContent = 'Processing...';
+        const { tourId } = e.target.dataset;
+        bookTour(tourId);
+    });
