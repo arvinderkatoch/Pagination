@@ -203,3 +203,258 @@ body {
   transform: translateY(-1px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: #1f2937;
+  background: #f8fafc;
+}
+
+.container {
+  width: min(1100px, 92%);
+  margin: 0 auto;
+}
+
+.header,
+.footer {
+  background: #111827;
+  color: white;
+}
+
+.header {
+  min-height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.25rem;
+  position: sticky;
+  z-index: 1000;
+  top: 0;
+
+}
+
+.header__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header__logo img {
+  height: 2.2rem;
+  width: auto;
+  display: block;
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.9rem 0;
+}
+
+.logo {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.nav {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.nav a {
+  color: #d1d5db;
+  text-decoration: none;
+}
+
+.nav a.active {
+  color: #fff;
+}
+
+.nav__el {
+  color: #e5e7eb;
+  text-decoration: none;
+  font-weight: 600;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  padding: 0.35rem 0.5rem;
+  border-radius: 6px;
+}
+
+.nav__el:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.nav__el--cta {
+  background: #22c55e;
+  color: #06240f;
+}
+
+.nav__el--cta:hover {
+  background: #16a34a;
+  color: #fff;
+}
+
+.nav__user-img {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 0.35rem;
+  vertical-align: middle;
+}
+
+.page-content {
+  padding: 1.5rem 0 3rem;
+  min-height: calc(100vh - 120px);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1rem;
+}
+
+/* .card {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: white;
+  padding: 1rem;
+} */
+.card {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: white;
+  padding: 1rem;
+  overflow: hidden;
+
+}
+
+.card img {
+  width: 100%;
+  display: block;
+  transition: transform 0.3s ease;
+
+}
+
+.card img:hover {
+  transform: scale(1.2);
+
+}
+
+.form {
+  display: grid;
+  gap: 0.8rem;
+  max-width: 420px;
+}
+
+.form input,
+.form button {
+  width: 100%;
+  padding: 0.6rem;
+}
+
+.footer {
+  padding: 1rem 0;
+}
+
+.cta {
+  background: linear-gradient(to right bottom, #7dd56f, #28b485);
+  border-radius: 12px;
+  padding: 4rem;
+  margin: 3rem 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  text-align: center;
+}
+
+.cta__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.heading-secondary {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.cta__text {
+  font-size: 1.2rem;
+  color: #fff;
+  opacity: 0.9;
+}
+
+.btn--green {
+  background: #fff;
+  color: #28b485;
+  padding: 1rem 3rem;
+  border: none;
+  border-radius: 100px;
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn--green:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  background: #f7f7f7;
+}
+
+.btn--green:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* TourImages.module.css */
+.imageRow {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 10px 0;
+  -webkit-overflow-scrolling: touch;
+  /* Smooth scrolling on mobile */
+}
+
+.tourImage {
+  max-width: 420px;
+  width: 100%;
+  border-radius: 8px;
+  flex-shrink: 0;
+  /* Prevents images from squeezing/shrinking */
+  object-fit: cover;
+}
+
+/* Optional: Hide scrollbar but keep functionality */
+.imageRow::-webkit-scrollbar {
+  display: none;
+}
+
+.section {
+  z-index: 0;
+}

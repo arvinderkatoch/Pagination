@@ -1,1 +1,11 @@
 /node_modules
+/client/node_modules
+/client/dist
+/env
+/config.env
+/.env
+/.env.*
+!.env.example
+**/.DS_Store
+/EC2_DEPLOYMENT_GUIDE.md
+/README.md
