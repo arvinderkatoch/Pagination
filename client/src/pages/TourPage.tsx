@@ -70,14 +70,16 @@ function TourPage({ user }: { user: any }) {
             <h2>{tour.name}</h2>
             <p>{tour.summary}</p>
 
-            {(tour.image ?? []).map((img, i) => (
-                <img
-                    key={img}
-                    src={`/img/tours/${img}`}
-                    alt={`${tour.name} ${i + 1}`}
-                    style={{ maxWidth: '420px', width: '100%', borderRadius: '8px' }}
-                />
-            ))}
+            <div className="imageRow">
+                {(tour.image ?? []).map((img, i) => (
+                    <img
+                        key={img}
+                        src={`/img/tours/${img}`}
+                        alt={`${tour.name} ${i + 1}`}
+                        className="tourImage"
+                    />
+                ))}
+            </div>
             <TourMap locations={tour.locations} />
             <ul>
                 <li>
