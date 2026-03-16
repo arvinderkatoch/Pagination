@@ -24,7 +24,7 @@ function OverviewPage() {
     return (
         <section>
             <h1>Overview</h1>
-            <p>Placeholder page. Replace with your migrated overview UI.</p>
+            <p>Not all those who wander are lost.</p>
 
             {loading ? (
                 <p>Loading tours...</p>
